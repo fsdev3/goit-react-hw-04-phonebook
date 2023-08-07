@@ -1,22 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { FilterDiv } from './Filter.styled';
 import PropTypes from 'prop-types';
 
-export class Filter extends Component {
-  render() {
-    const { filter, onChange } = this.props;
-    return (
-      <FilterDiv>
-        <label>Find contact by Name: </label>
-        <input
-          type="text"
-          name="filter"
-          value={filter}
-          onChange={onChange}
-        ></input>
-      </FilterDiv>
-    );
-  }
+export function Filter({ filter, onChange }) {
+  return (
+    <FilterDiv>
+      <label>Find contact by Name: </label>
+      <input
+        type="text"
+        name="filter"
+        value={filter}
+        onChange={e => onChange(e.target.value)}
+      />
+    </FilterDiv>
+  );
 }
 
 Filter.propTypes = {

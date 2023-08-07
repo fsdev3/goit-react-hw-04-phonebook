@@ -1,4 +1,4 @@
-import { Contact } from 'components/Contact/Contact';
+import { Contact } from '../Contact/Contact';
 import PropTypes from 'prop-types';
 
 export function ContactList({ list, onDeleteItem }) {
@@ -15,5 +15,5 @@ export function ContactList({ list, onDeleteItem }) {
 
 ContactList.propTypes = {
   list: PropTypes.arrayOf(PropTypes.object),
-  onDelItem: PropTypes.func,
+  onDeleteItem: PropTypes.func,
 };

@@ -1,59 +1,46 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Form } from './ContactForm.styled';
 import PropTypes from 'prop-types';
 
-export class ContactForm extends Component {
-  state = {
-    name: '',
-    number: '',
-  };
+export function ContactForm({ onSubmitHandler }) {
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
 
-  inputChangeValue = e => {
-    const newUsername = e.target.value;
-    const key = e.target.name;
-    return this.setState({ [key]: newUsername });
-  };
-
-  handleSubmit = e => {
+  const handleSubmit = e => {
     e.preventDefault();
-    if (this.props.onSubmitHandler(this.state)) {
-      this.setState({ name: '', number: '' });
+    if (name.trim() === '' || number.trim() === '') {
+      return;
     }
+    onSubmitHandler({ name, number });
+    setName('');
+    setNumber('');
   };
 
-  render() {
-    const { name, number } = this.state;
-
-    return (
-      <Form onSubmit={this.handleSubmit}>
-        <label htmlFor="inputName">Name</label>
-        <input
-          type="text"
-          name="name"
-          value={name}
-          id="inputName"
-          pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-          required
-          onChange={this.inputChangeValue}
-        />
-        <label htmlFor="inputNumber">Number</label>
-        <input
-          type="tel"
-          name="number"
-          value={number}
-          id="inputNumber"
-          pattern="\+?\d{1,4}?[ .\-\s]?\(?\d{1,3}?\)?[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,9}"
-          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-          required
-          onChange={this.inputChangeValue}
-        />
-        <button type="submit">Add contact</button>
-      </Form>
-    );
-  }
+  return (
+    <Form onSubmit={handleSubmit}>
+      <label htmlFor="inputName">Name</label>
+      <input
+        type="text"
+        name="name"
+        value={name}
+        id="inputName"
+        required
+        onChange={e => setName(e.target.value)}
+      />
+      <label htmlFor="inputNumber">Number</label>
+      <input
+        type="tel"
+        name="number"
+        value={number}
+        id="inputNumber"
+        required
+        onChange={e => setNumber(e.target.value)}
+      />
+      <button type="submit">Add contact</button>
+    </Form>
+  );
 }
 
 ContactForm.propTypes = {
-  onAlert: PropTypes.func,
+  onSubmitHandler: PropTypes.func,
 };
