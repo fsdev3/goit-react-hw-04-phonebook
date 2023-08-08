@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { nanoid } from 'nanoid';
+import { Filter } from './Filter/Filter';
 import { ContactForm } from './ContactForm/ContactForm';
 import { ContactList } from './ContactList/ContactList';
-import { Filter } from './Filter/Filter';
 import { Container } from './App.styled';
 
 const STORAGE_KEY = 'contacts';
